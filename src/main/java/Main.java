@@ -1,3 +1,6 @@
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.Scanner;
 
 public class Main {
@@ -14,6 +17,21 @@ public class Main {
             } catch (NumberFormatException e) {
                 System.out.println("Invalid input" + e.getMessage());
             }
+        }
+
+        System.out.println("Enter the file name (e.g., students.txt): ");
+        String fileName = sc.nextLine().trim();
+
+        System.out.println("Enter a name to save: ");
+        String name = sc.nextLine().trim();
+
+        try(PrintWriter out= new PrintWriter(new FileWriter(fileName, true)))
+        {
+            out.println(name);
+            System.out.println("Saved to " + fileName);
+        }catch (IOException e)
+        {
+            System.out.println("Could not write to file:  " + e.getMessage());
         }
     }
 }
