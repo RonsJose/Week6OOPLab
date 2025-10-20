@@ -1,6 +1,4 @@
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.PrintWriter;
+import java.io.*;
 import java.util.Scanner;
 
 public class Main {
@@ -29,9 +27,35 @@ public class Main {
         {
             out.println(name);
             System.out.println("Saved to " + fileName);
-        }catch (IOException e)
+        }catch (IOException ex)
         {
-            System.out.println("Could not write to file:  " + e.getMessage());
+            System.out.println("Could not write to file:  " + ex.getMessage());
+        }
+
+        BufferedReader br = null;
+        try{
+            FileReader neverUsed = new FileReader("student.txt");
+            br= new BufferedReader(neverUsed);
+            System.out.println("Contents of students.txt: ");
+            String line;
+            while((line=br.readLine())!=null)
+            {
+                System.out.println(" - "+line);
+            }
+        }catch (IOException ex)
+        {
+            System.out.println("Could not read from file:  " + ex.getMessage());
+        }
+        finally
+        {
+            if (br != null)
+            {
+                try {
+                    br.close();
+                } catch (IOException closeEx) {
+                    System.out.println("Could not close file:  " + closeEx.getMessage());
+                }
+            }
         }
     }
 }
